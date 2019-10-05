@@ -1,0 +1,29 @@
+/** {
+  background:gray;
+
+}
+h1 {
+  color:red;
+}
+
+*.border {
+  background: black;
+}
+
+*.border .horiz {
+  width:140px;
+  height:7px;
+}
+
+*.square {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  background: cyan;
+  border-color: black;
+  font-size: 24pt;
+}
+
+*.inline {
+  display: inline;
+}*/
