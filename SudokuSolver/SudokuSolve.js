@@ -76,7 +76,6 @@ function clearBoard() {
 
 
 function onKey(square) {
-  if (square.value.length != 1) {
   if (!(square.value in Array.from("123456789"))) {
     BOARD.clear_square(square)
     return;
