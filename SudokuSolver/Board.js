@@ -23,6 +23,8 @@ class Board{
     }
   }
 
+
+
   template(tpstr) {
     this.clear();
     for(var r = 0; r < 9; r++) {
@@ -35,7 +37,15 @@ class Board{
     }
   }
 
+  clear_square(square) {
+    function coord(square) {
+      var num = square.id.slice(6);
+      return[Math.floor(num / 9), num % 9];
+    }
 
+    this.set(this.get(coord(square)), 0);
+    square.value = "";
+  }
 
   set(coords, n) {
     // this.grid[r][c] = n

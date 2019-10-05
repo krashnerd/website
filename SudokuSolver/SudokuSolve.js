@@ -71,18 +71,12 @@ function clearBoard() {
 }
 
 
-function coord(square) {
-  var num = square.id.slice(6);
-  return[Math.floor(num / 9), num % 9];
-}
-
-function asdf() {
-  return;
-}
 
 
 function onKey(square) {
-  if(square.value.length == 0) return;
+  if (square.value.length != 1) {
+
+  } 
   num = Number(square.value);
   var coords = coord(square);
   if(isNaN(num) || !num) {
