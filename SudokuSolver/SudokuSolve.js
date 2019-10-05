@@ -62,6 +62,8 @@ function HTMLBoardInit() {
   printMap.value = "print";
   printMap.onClick = "BOARD.printMap()";
   document.getElementById("board").appendChild(printMap);
+
+
 }
 function clearBoard() {
   for(var i = 0; i < 81; i++) {
@@ -75,21 +77,22 @@ function clearBoard() {
 
 function onKey(square) {
   if (square.value.length != 1) {
-
-  } 
-  num = Number(square.value);
-  var coords = coord(square);
-  if(isNaN(num) || !num) {
-    BOARD.set(BOARD.get(coords), 0);
-    square.value = "";
+  if (!(square.value in Array.from("123456789"))) {
+    BOARD.clear_square(square)
+    return;
   }
-  else if (!BOARD.canPlace(coords, num)) {
-    if(BOARD.get(coords) != num) {
+
+  var num = Number(square.value);
+  var coords = coord(square);
+
+  if ((BOARD.get(coords) != num) && (!BOARD.canPlace(coords, num))) {
+     {
       var oldbg = square.style.background;
       square.style.background = "red";
       BOARD.set(BOARD.get(coords), 0);
       square.value = "";
       square.style.background = oldbg;
+      return
     }
   }
   else {
