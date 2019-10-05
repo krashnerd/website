@@ -1,19 +1,24 @@
 function HTMLBoardInit() {
   BOARD = new Board();
-  var sText = document.createElement("input");
 
-  var hLine = document.createElement("div");
-  hLine.className = "horiz border";
-  var vLine = document.createElement("div");
-  vLine.className = "vert inline border";
+
+  var sText = document.createElement("input");
   sText.className = "square";
   sText.type = "text";
   sText.maxLength = "1";
+  
+  var hLine = document.createElement("div");
+  hLine.className = "horiz border";
+  
+  var vLine = document.createElement("div");
+  vLine.className = "vert inline border";
+  
   var square = document.createElement("LI");
   square.appendChild(sText);
+
   var colors = ["MediumSpringGreen", "Cyan", "Tan", "Silver", "LightBlue",
     "LightPink", "#fefdb3", "#deb3fe", "#dbfeb3"]
-  var asdf = false
+
   for(var r = 0; r < 9; r++) {
     var row = document.createElement("DIV");
 
@@ -100,9 +105,8 @@ function onKey(square) {
   }
 }
 
-function CPAE(board, r, c, n) {
-  if(board.get(r, c) == 0) return false;
-
+function CanPlaceAndEmpty(board, r, c, n) {
+  if(board.get(r, c) != 0) return false;
   return board.canPlace(r, c, n);
 }
 
