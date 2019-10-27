@@ -2,4 +2,4 @@ from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Sudoku views page")
+    return render(request, "sudoku/SudokuSolver.html")
