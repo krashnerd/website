@@ -72,7 +72,11 @@ function clearBoard() {
   BOARD.clear();
 }
 
-
+function coord(square) {
+  // Returns the coordinates of an HTML square object
+      var num = square.id.slice(6);
+      return[Math.floor(num / 9), num % 9];
+    }
 
 
 function onKey(square) {
@@ -109,6 +113,7 @@ function CanPlaceAndEmpty(board, r, c, n) {
 function sliceDicePlace(board, cat, ind, n) {
   var blanks = board.crds[0];
   for(var i = 0; i < blanks.length(); blanks++) {
+    // placeholder
   }
 }
 
@@ -178,22 +183,20 @@ function solve(board, coords) {
   return false;
 }
 
-
-
-function sudokuSolve() {
+function loadHardPuzle() {
   var tpl = ["800000000",
-           "003600000",
-           "070090200",
-           "050007000",
-           "000045700",
-           "000100030",
-           "001000068",
-           "008500010",
-           "090000400"];
+             "003600000",
+             "070090200",
+             "050007000",
+             "000045700",
+             "000100030",
+             "001000068",
+             "008500010",
+             "090000400"];
 
-  BOARD.template(tpl);
-
-
+    BOARD.template(tpl);
+}
+function sudokuSolve() {
   var t0 = performance.now();
   var coords = BOARD.fewest();
   // BOARD.printMap();
