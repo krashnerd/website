@@ -1,0 +1,40 @@
+body {
+	background-color: #575349;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+h2 {
+	color: white;
+	text-align: center;
+}
+
+.paragraph_container {
+  width: 800px;
+  height: 300px;
+  /*border: 1px solid black;*/
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-content: center;
+  align-content: center;
+
+}
+
+.app_link {
+	background-color: grey; 
+	
+
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+  color: white;
+  margin-left: 50px;
+
+}
