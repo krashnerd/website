@@ -3,5 +3,5 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse()
+    return HttpResponse("Scrabble views page")
 # Create your views here.
