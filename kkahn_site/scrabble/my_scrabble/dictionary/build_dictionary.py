@@ -44,9 +44,17 @@ def pickle_dawg(infile = "dictionary.json", outfile = "Alphadict.bytesIO"):
 
     return dawg_nodes[0]
 
-def get_dictionary(filename = "dict.bytesIO"):
-    with open(filename, "rb") as dictfile:
-        dawg = pickle.load(dictfile)
+def get_dictionary(filename = "scrabble/my_scrabble/dictionary/dict.bytesIO"):
+    import os
+    
+
+    try:
+        with open(filename, "rb") as dictfile:
+            dawg = pickle.load(dictfile)
+    except:
+        print(os.getcwd())
+        raise
+
 
     return dawg[0]
 
