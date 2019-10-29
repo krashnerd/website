@@ -224,10 +224,13 @@ class Board:
     def check_move_score(self, move):
         """Checks the score of a move without applying it"""
         assert not self.is_transposed
+
         for _, loc in move:
             assert self[loc].loc == loc
+
         if not move:
             raise EmptyMoveError
+
         try:
             locs = [loc for _, loc in move]
         except ValueError:
@@ -237,8 +240,10 @@ class Board:
             if self[loc].occupied:
                 raise OccupiedSpaceError("Board:\n{}\nMove:{}".format(str(self), loc))
             self[loc] = tile
+
         try:
             score = self.score_word(locs)
+
         except InvalidMoveError:
             for loc in locs:
                 self[loc] = None
@@ -255,6 +260,9 @@ class Board_Space(object):
         self.tile = None
         self.bonusType = bonusType
         self.printedBonusType = ("%sx%s" % (bonusType[0],bonusType[1]) if self.bonusType is not None else "  ")
+
+        # self.
+
 
         if loc == (7,7):
             self.printedBonusType = " * "

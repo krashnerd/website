@@ -2,8 +2,6 @@ import tkinter as tk
 from tk_gui import game_gui
 import agents.players as player_module
 
-
-
 def get_players():
 
 	player_options = [
