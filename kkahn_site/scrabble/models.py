@@ -5,11 +5,18 @@ from django.core.validators import MaxValueValidator
 
 class TileTemplate(models.Model):
     letter = models.CharField(max_length = 1)
-    point_value = models.IntegerField(default = 0)
+    point_value = models.IntegerField(default = 0, 
+        verbose_name = "Tile point value")
 
 class Game(models.Model):
     name = models.CharField(max_length = 16)
-    num_players = models.PositiveIntegerField(default = 2)
+    num_players = models.PositiveIntegerField(
+        default = 2, 
+        verbose_name = "Number of players"
+        )
+
+    def __str__(self):
+        return self.name
 
 class User(models.Model):
     name = models.CharField(max_length = 16)
@@ -18,6 +25,9 @@ class User(models.Model):
         through = 'GamePlayer',
         through_fields = ['user', 'game']
         )
+
+    def __str__(self):
+        return self.name
 
 class GamePlayer(models.Model):
     """ A single user in a game. """
