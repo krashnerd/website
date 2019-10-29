@@ -59,7 +59,7 @@ def main():
 	player_types = get_players()
 	players = [index[player_type] for player_type in player_types]
 
-	intro_win = tk.Tk()
+	# intro_win = tk.Tk()
 
 	win = tk.Tk()
 
