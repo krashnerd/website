@@ -1,0 +1,26 @@
+.board {
+	display:grid;
+	grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+	background-color: black;
+
+}
+
+.square {
+
+}
+
+.square-double-letter {
+
+}
+
+.square-double-word {
+
+}
+
+.square-triple-letter {
+
+}
+
+.square-triple-word {
+	
+}
