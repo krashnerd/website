@@ -248,7 +248,6 @@ class Board:
         return score
 
 class Board_Space(object):
-
     def __init__(self, loc, bonusType = None):
         """Makes a board space which knows its own location bonus type"""
         self.occupied = False

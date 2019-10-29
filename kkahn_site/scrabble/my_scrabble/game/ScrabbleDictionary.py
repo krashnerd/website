@@ -1,4 +1,4 @@
-from dictionary_files.build_dictionary import *
+from ..dictionary.build_dictionary import *
 
 class ScrabbleDictionary():
 	def __init__(self):

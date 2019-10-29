@@ -1,4 +1,3 @@
-
 class Tile(object):
 	def __init__(self, letter, points = None, tile_id = None):
 		self.letter = letter
