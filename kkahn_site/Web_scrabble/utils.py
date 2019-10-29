@@ -1,0 +1,44 @@
+def get_start_of_word(grid, start_loc, direction = 1):
+
+    loc = list(start_loc)
+    letter = board[loc].get_letter()
+
+    while loc[direction] >= 0 and letter is not None:
+        loc[direction] -= 1
+        letter = board[loc].get_letter()
+
+    loc[direction] += 1
+
+    return loc
+
+def grid_transpose(grid):
+    return list(zip(*[list(x) for x in grid]))
+
+def matches_all(regex):
+    return bool(regex.match('0'))
+
+def count(iter):
+    try:
+        return len(iter)
+    except TypeError:
+        return sum(1 for _ in iter)
+
+def iterate_dag(node, string = ''):
+    top_level = node
+    curr = node
+    for letter, new_node in curr.items():
+        if letter == '$':
+            yield string
+        new_string = string + letter
+        for word in iterate_dag(new_node, new_string):
+            yield word
+
+def validate_placement(single_placement):
+    tile, loc = single_placement
+    try:
+        x, y = loc
+    except TypeError:
+        return False
+
+         # Note: Sacrificing slight runtime efficiency for readability.
+    return x in range(15) and y in range(15)
