@@ -222,6 +222,7 @@ class Board:
 
 
     def check_move_score(self, move):
+        """Checks the score of a move without applying it"""
         assert not self.is_transposed
         for _, loc in move:
             assert self[loc].loc == loc
