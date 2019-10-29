@@ -1,9 +1,0 @@
-Plan for training an agent
-
-Step 1: Create beginning agent
-	
-	1a: 
-		Monte Carlo to get number of moves and best moves
-
-	1b: 
-
