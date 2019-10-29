@@ -6,21 +6,22 @@
 }
 
 .square {
+	background-color: beige
 
 }
 
 .square-double-letter {
-
+	background-color:cyan;
 }
 
 .square-double-word {
-
+	background-color: pink;
 }
 
 .square-triple-letter {
-
+	background-color: blue
 }
 
 .square-triple-word {
-	
+	background-color: red
 }
