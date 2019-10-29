@@ -1,6 +1,6 @@
 import tkinter as tk
-import game_gui
-import players as player_module
+from tk_gui import game_gui
+import agents.players as player_module
 
 
 

@@ -1,9 +1,10 @@
 """Brute force best starter word"""
-import csv, string, re, utils
+import csv, string, re
+from utils import utils
 from functools import reduce
 import numpy as np
-from Scrabble import Scrabble
-from ScrabbleDictionary import dictionary
+from game.Scrabble import Scrabble
+from game.ScrabbleDictionary import dictionary
 
 
 def score_firstword(tiles):

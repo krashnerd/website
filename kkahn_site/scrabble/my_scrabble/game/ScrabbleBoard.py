@@ -1,7 +1,7 @@
-from ScrabbleTile import Tile
-from ScrabbleDictionary import dictionary
-import utils, consts
-from exceptions import *
+from game.ScrabbleTile import Tile
+from game.ScrabbleDictionary import dictionary
+from utils import utils, consts
+from game.exceptions import *
 
 class Board:
 

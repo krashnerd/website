@@ -7,12 +7,14 @@ GUI wrapper
 
 """
 
+import sys
+
 import tkinter as tk
 from tkinter import N, S, E, W, NE, NW, SE, SW
-import Scrabble, utils
-from ScrabbleBoard import InvalidMoveError
-import ScrabbleTile
-from players import GreedyPlayer
+from game import Scrabble, ScrabbleTile
+from utils import utils
+from game.exceptions import InvalidMoveError
+from agents.players import GreedyPlayer
 
 tile_size = 40
 tile_center = (tile_size//2, tile_size//2)
@@ -322,11 +324,10 @@ class DisplayBoard():
 
 
 
-def main():
-    win = tk.Tk()
-    display = Display(win)
-    win.mainloop()
-
+# def main():
+#     win = tk.Tk()
+#     display = Display(win)
+#     win.mainloop()
 
 # def main():
 #   window = tk.Tk()

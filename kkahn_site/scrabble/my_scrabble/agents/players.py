@@ -1,6 +1,7 @@
-import utils, datetime
+import datetime
+from utils import utils
 import agents.bruteforcer as bruteforcer
-import Scrabble
+from game import Scrabble
 
 class ScrabblePlayer:
 	def __init__(self, program):
