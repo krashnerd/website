@@ -3,3 +3,4 @@ SudokuSolver/pythonic.js
 *.pyc
 *.pyc
 kkahn_site/scrabble/shortcut.py
+kkahn_site/scrabble/my_scrabble/html_gui.py
