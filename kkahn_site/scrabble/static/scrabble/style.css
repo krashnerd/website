@@ -1,12 +1,12 @@
 .board {
 	display:grid;
 	grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
-	background-color: black;
 
 }
 
 .square {
 	background-color: beige
+	border-color:;
 
 }
 
@@ -19,9 +19,11 @@
 }
 
 .square-triple-letter {
-	background-color: blue
+	background-color: blue;
+	color:white;
 }
 
 .square-triple-word {
 	background-color: red
+	color:white;
 }
