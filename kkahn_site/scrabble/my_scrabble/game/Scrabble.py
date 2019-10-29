@@ -1,12 +1,14 @@
 import json, string, copy
-import consts
 
+import sys
+
+from utils import consts
 
 from numpy import random
-from ScrabbleBoard import Board, InvalidMoveError
-from ScrabbleTile import Tile
-from ScrabbleDictionary import dictionary
-from exceptions import *
+from game.ScrabbleBoard import Board, InvalidMoveError
+from game.ScrabbleTile import Tile
+from game.ScrabbleDictionary import dictionary
+from game.exceptions import *
 
 # class Move():
 # 	def __init__(self, start_loc, end_loc, word):
