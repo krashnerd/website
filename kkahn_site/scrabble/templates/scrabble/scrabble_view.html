@@ -1,1 +1,23 @@
-!doctype HTML
+<!DOCTYPE html>
+
+<head>
+	Scrabble
+	{% load static %}
+	<link rel="stylesheet" href="{% static "scrabble/style.css" %}">
+</head>
+
+<body>
+	
+
+	<div class="board">
+		{% for row in grid%}
+			{% for square in row%}
+				<div class = {{square.type}}>
+					{{square.bonustext}}					
+				</div>
+			{%endfor%}
+		{%endfor%}
+	</div>
+
+</body>
+</html>
