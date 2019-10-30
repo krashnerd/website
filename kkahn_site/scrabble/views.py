@@ -1,26 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import my_scrabble
-
-
-class Square():
-    def __init__(self, bonustype = None):
-        bonuses = dict({
-            "DW": ("Double Word Score", "square-double-word"),
-            "TW": ("Triple Word Score", "square-triple-word"),
-            "DL": ("Double Letter Score", "square-double-letter"),
-            "TL": ("Triple Letter Score", "square-triple-letter"),
-            None: ("", "square"),
-        })
-
-        self.bonustext, self.type = bonuses.get(bonustype, ("", "square"))
-
-
-
-
+from .my_scrabble.game import ScrabbleBoard
 
 def index(request):
-    context = 
+    board = ScrabbleBoard.Board()
+    grid = board.grid
+
+    context = {'grid':grid}
 
     return render(request, "scrabble/scrabble_view.html", context)
 # Create your views here.
+
+def clicksquare(request):
+    return HttpResponse("click")
+
+def display_id(request, square_id):
+    return HttpResponse(str(square_id))
