@@ -1,12 +1,50 @@
-from game.ScrabbleTile import Tile
-from game.ScrabbleDictionary import dictionary
-from utils import utils, consts
-from game.exceptions import *
+from .ScrabbleTile import Tile
+from .ScrabbleDictionary import dictionary
+from ..utils import utils, consts
+from .exceptions import *
 
 class Board:
 
     """docstring for S_Board"""
     def __init__(self):
+
+        class BoardSpaceTemplate():
+            def __init__(self, bonus_type = None):
+                css_class_lookup = {
+                    'L2':'square-double-letter',
+                    'W2':'square-double-word',
+                    'L3':'square-triple-letter',
+                    'W3':'square-triple-word',
+                    None:'square'
+                }
+
+                bonus_text_lookup = {
+                    'L2':'Double\nletter\nscore',
+                    'W2':'Double\nword\nscore',
+                    'L3':'Triple\nletter\nscore',
+                    'W3':'Triple\nword\nscore',
+                    None:''
+                }
+
+                self.bonus_type = bonus_type
+                self.css_class = css_class_lookup.get(bonus_type)
+                self.bonus_text = bonus_text_lookup.get(bonus_type, "")
+                self.css_class_lookup = css_class_lookup.get(bonus_type)
+
+                # Default bonus values
+                self.letter_bonus = 1
+                self.word_bonus = 1
+
+                if bonus_type is not None:
+                    bonus_amt = int(bonus_type[1])
+                    if(bonus_type [0] == "L"):
+                        self.letter_bonus = bonus_amt
+                    else:
+                        self.word_bonus = bonus_amt
+
+            def in_range(self, a):
+                return 0 <= a[0] < 15 and 0 <= a[1] < 15
+
         self.is_transposed = False
         _TWS = [(x,y) for x in [0,7,14] for y in [0,7,14]]
         _TWS.remove((7,7))
@@ -14,7 +52,6 @@ class Board:
         _DWS.append((7,7))
 
         # Double letters
-
         _DLS = [(x0+dx*mx,y0+dy*my)
                 for x0,dx in [(0,1),(14,-1)] 
                     for y0,dy in [(0,1),(14,-1)]
@@ -26,14 +63,14 @@ class Board:
                     for y0,dy in [(0,1),(14,-1)]
                         for mx,my in [(5,1),(5,5),(1,5)]]
 
-        self.grid = [[Board_Space((r, c), None) for c in range(15)] for r in range(15)]
         # self.vert_grid = [[self.grid[c][r] for r in range(15)] for c in range(15)]
-        _bonusType = None
-        
-        for coords_lst, poss_bonus in [(_DLS,"L2"),(_DWS,"W2"),(_TWS,"W3"),(_TLS,"L3")]:
-            for coords in coords_lst:
-                self[coords].set_bonus(poss_bonus)
+        templates = {bonus_type: BoardSpaceTemplate(bonus_type) for bonus_type in ("L2", "W2", "L3", "W3", None)}
 
+        self.grid = [[Board_Space((r, c), templates[None]) for c in range(15)] for r in range(15)]
+        
+        for coords_lst, bonus_type in [(_DLS,"L2"),(_DWS,"W2"),(_TWS,"W3"),(_TLS,"L3")]:
+            for coords in coords_lst:
+                self[coords].set_bonus(templates[bonus_type])
 
     def place_tile_on_board(self, tile, coords):
         self[coords].place_tile_on_space(tile)
@@ -69,7 +106,7 @@ class Board:
                     lambda tile:
                         (" %s " % tile.tile.letter) if tile.occupied 
                         else 
-                            tile.printedBonusType if tile.bonusType is not None 
+                            tile.printedBonusType if tile.bonus_type is not None 
                             else 
                                 "   ",
                      lambda tile: "___"]:
@@ -119,7 +156,9 @@ class Board:
         main_word_score = 0
         r,original_c = new_tile_locs[0]
 
+
         # Scores a single word based on the word locations -----------------
+
 
         def score_single_word(word_locs):
             word_points = 0
@@ -132,14 +171,16 @@ class Board:
 
                 # Apply bonus
                 if (r, c) in new_tile_locs:
-                    word_mult *= space.wordBonus
-                    letter_mult *= space.letterBonus
+                    word_mult *= space.word_bonus
+                    letter_mult *= space.letter_bonus
 
                 word_points += letter_mult * tile.points
 
             return word_mult * word_points
 
+
         # --------- Find beginning and end of horizontal word ------------
+
 
         c = original_c
         letter = self[r, c].get_letter()
@@ -166,10 +207,8 @@ class Board:
         end = c
 
 
-
-
-
         # --------- Get list of coordinates for each new word -----------
+
 
         all_word_locs = [[(r, curr_c) for curr_c in range(begin, end)]]
         for r, c in new_tile_locs:
@@ -197,11 +236,9 @@ class Board:
 
             all_word_locs.append(curr_word_locs)
 
-        
 
         # -------- Return the score of each word with length > 1 ---------
 
-        
 
         all_word_locs = list(filter(lambda x:len(x) > 1, all_word_locs))
         all_words = ["".join([self[loc].get_letter() for loc in word_locs]) for word_locs in all_word_locs]
@@ -225,17 +262,18 @@ class Board:
         """Checks the score of a move without applying it"""
         assert not self.is_transposed
 
-        for _, loc in move:
-            assert self[loc].loc == loc
-
         if not move:
             raise EmptyMoveError
+
+        for _, loc in move:
+            assert self[loc].loc == loc
 
         try:
             locs = [loc for _, loc in move]
         except ValueError:
             print("Move:{} ".format(move))
             locs = [loc for _, loc in move]
+
         for tile, loc in move: 
             if self[loc].occupied:
                 raise OccupiedSpaceError("Board:\n{}\nMove:{}".format(str(self), loc))
@@ -253,29 +291,37 @@ class Board:
             self[loc] = None
         return score
 
+
 class Board_Space(object):
-    def __init__(self, loc, bonusType = None):
+    def __init__(self, loc, bonus_template):
         """Makes a board space which knows its own location bonus type"""
+
         self.occupied = False
         self.tile = None
-        self.bonusType = bonusType
-        self.printedBonusType = ("%sx%s" % (bonusType[0],bonusType[1]) if self.bonusType is not None else "  ")
-
-        # self.
-
-
-        if loc == (7,7):
-            self.printedBonusType = " * "
         self.loc = loc
-        self.in_range = lambda a: 0 <= a[0] < 15 and 0 <= a[1] < 15
-        self.connectors = list(filter(self.in_range,
-                                [(loc[0]+dr,loc[1]+dc)
-                                    for dr in [-1,1]
-                                        for dc in [-1,1]]))
+        self.template = bonus_template
+
+        self.sync_template()
+        # self.printedBonusType = ("%sx%s" % (bonus_type[0],bonus_type[1]) if self.bonus_type is not None else "  ")
+
+        # # Special case for the center tile
+        # if loc == (7,7):
+        #     self.printedBonusType = " * "
+
+
+        
+        
 
         #Parsing bonus amount
-        self.wordBonus = 1 
-        self.letterBonus = 1
+
+
+    def sync_template(self):
+
+        self.word_bonus = self.template.word_bonus
+        self.letter_bonus = self.template.letter_bonus
+        self.bonus_type = self.template.bonus_type
+
+        self.in_range = self.template.in_range
 
     def get_letter(self):
         if not self.occupied:
@@ -284,18 +330,9 @@ class Board_Space(object):
         else:
             return self.tile.letter
 
-    def set_bonus(self, bonusType):
-        self.bonusType = bonusType
-        if(bonusType != None):
-            bonusAmt = int(bonusType[1])
-            if(bonusType [0] == "L"):
-                self.letterBonus = bonusAmt
-            else:
-                self.wordBonus = bonusAmt
-        self.printedBonusType = ("%sx%s" % (bonusType[0],bonusType[1]) if self.bonusType is not None else "  ")
-
-        if self.loc == (7,7):
-            self.printedBonusType = " * "
+    def set_bonus(self, bonus_template):
+        self.template = bonus_template
+        self.sync_template()
 
 
     def place_tile_on_space(self, tile):
@@ -316,4 +353,6 @@ class Board_Space(object):
 
     def __repr__(self):
         return ' ' if self.tile == None else self.tile.letter
+
+
 
