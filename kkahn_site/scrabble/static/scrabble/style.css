@@ -1,13 +1,28 @@
 .board {
 	display:grid;
-	grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
+	grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+	grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+	border: black 2px;
+	text-align: center;
+	font-size:12px;
+
 
 }
 
-.square {
-	background-color: beige
-	border-color:;
 
+
+.square {
+	background-color: white;
+	border-color:black;
+	border-width: 2px;
+	text-align: center;
+	font-family: arial;
+	border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.square-triple-word {
+	background-color: red;
+	color:white;
 }
 
 .square-double-letter {
@@ -23,7 +38,16 @@
 	color:white;
 }
 
-.square-triple-word {
-	background-color: red
-	color:white;
+.tileletter {
+	color:black;
+	size:30px;
+	text-align: center;
+	font-family:arial;
+}
+
+.tilescore{
+	color:black;
+	size:12px;
+	text-align: center;
+	font-family: arial;
 }
