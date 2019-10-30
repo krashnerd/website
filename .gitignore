@@ -4,3 +4,4 @@ SudokuSolver/pythonic.js
 *.pyc
 kkahn_site/scrabble/shortcut.py
 kkahn_site/scrabble/my_scrabble/html_gui.py
+kkahn_site/scrabble/construct_board.py
