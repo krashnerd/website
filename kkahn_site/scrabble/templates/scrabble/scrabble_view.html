@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 
 <head>
-	Scrabble
+	<title>Scrabble</title>
+
 	{% load static %}
 	<link rel="stylesheet" href="{% static "scrabble/style.css" %}">
 </head>
@@ -10,12 +11,37 @@
 	<div class="board">
 		{% for row in grid%}
 			{% for square in row%}
-				<div class = {{square.type}}>
-					{{square.bonustext}}					
-				</div>
+					
+					{% csrf_token %}
+					{% if square.occupied %}
+
+						<svg height="50" width="50">
+							<rect width="50" height = "50" style="fill:beige"/>
+
+							<text x="15" y="35" fill="black" style="font-size:30px;text-">
+								{{square.tile.letter}}
+							</text>
+							<text x="39" y = "42" fill="black">{{square.tile.points}}</text>
+						</svg>
+
+					{% else %}
+
+						<div class = {{ square.template.css_class }}>
+							{{square.template.bonus_text|linebreaksbr}}{{square.id}}					
+						</div>
+					{% endif %}
 			{%endfor%}
 		{%endfor%}
 	</div>
+  
+<svg height="50" width="50">
+	<rect width="50" height = "50" style="fill:beige"/>
+  <text x="15" y="35" fill="black" style="font-size:30px;text-">A</text>
+  <text x="39" y = "42" fill="black">2</text>
+</svg>
 
 </body>
+
+
+
 </html>
