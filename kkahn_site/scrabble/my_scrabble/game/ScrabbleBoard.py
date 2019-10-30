@@ -4,11 +4,11 @@ from ..utils import utils, consts
 from .exceptions import *
 
 class Board:
-
     """docstring for S_Board"""
     def __init__(self):
 
         class BoardSpaceTemplate():
+            """ Template for a board space, including letter/word bonus amount as well as cosmetic info."""
             def __init__(self, bonus_type = None):
                 css_class_lookup = {
                     'L2':'square-double-letter',
@@ -106,7 +106,7 @@ class Board:
                     lambda tile:
                         (" %s " % tile.tile.letter) if tile.occupied 
                         else 
-                            tile.printedBonusType if tile.bonus_type is not None 
+                            tile.template.bonus_type if tile.bonus_type is not None 
                             else 
                                 "   ",
                      lambda tile: "___"]:
@@ -299,6 +299,8 @@ class Board_Space(object):
         self.occupied = False
         self.tile = None
         self.loc = loc
+        r, c = self.loc
+        self.id = str(r * 15 + c)
         self.template = bonus_template
 
         self.sync_template()
@@ -307,10 +309,6 @@ class Board_Space(object):
         # # Special case for the center tile
         # if loc == (7,7):
         #     self.printedBonusType = " * "
-
-
-        
-        
 
         #Parsing bonus amount
 
