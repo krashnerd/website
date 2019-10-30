@@ -1,8 +1,8 @@
-from dictionary.build_dictionary import *
+from ..dictionary.build_dictionary import *
 
 class ScrabbleDictionary():
 	def __init__(self):
-		self.starting_node = get_dictionary("dictionary/dict.bytesIO")
+		self.starting_node = get_dictionary()
 	def __contains__(self, word):
 
 
