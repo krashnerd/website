@@ -44,9 +44,9 @@ def pickle_dawg(infile = "dictionary.json", outfile = "Alphadict.bytesIO"):
 
     return dawg_nodes[0]
 
-def get_dictionary(filename = "scrabble/my_scrabble/dictionary/dict.bytesIO"):
+def get_dictionary(filename = "dict.bytesIO"):
     import os
-    
+    filename = f'{os.path.dirname(__file__)}/{filename}'
 
     try:
         with open(filename, "rb") as dictfile:
